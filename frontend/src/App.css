@@ -1,38 +1,124 @@
+html {
+  overflow-y: scroll;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f6f6f6; /* softer white */
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
 .App {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+nav {
+  background-color: #2e2e2e;
+  padding: 15px 0;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #eee;
+  font-weight: 500;
+  margin: 0 20px;
+  font-size: 1.05rem;
+}
+
+nav a.active {
+  color: #00ccff;
+  border-bottom: 2px solid #00ccff;
+}
+
+h1, h2, h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  margin: 30px 0;
+  border-collapse: collapse;
+  background-color: #fafafa;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.03);
+}
+
+table th,
+table td {
+  padding: 12px 18px;
+  border: 1px solid #ddd;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+select,
+input[type="number"] {
+  margin-left: 10px;
+  padding: 8px 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+button {
+  padding: 8px 14px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  background-color: #007BFF;
   color: white;
+  margin: 5px;
+  transition: background-color 0.2s ease;
 }
 
-.App-link {
-  color: #61dafb;
+button:hover {
+  background-color: #0056b3;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button.reset {
+  background-color: #cc0000;
+}
+
+button.reset:hover {
+  background-color: #990000;
+}
+
+.message {
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.message.error {
+  color: red;
+}
+
+.message.success {
+  color: green;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li {
+  margin: 6px 0;
+  font-size: 1rem;
 }
