@@ -133,6 +133,14 @@ function App() {
     ]);
   };
 
+  const handleReset = () => {
+    if (window.confirm("Are you sure you want to reset your account? This will clear all holdings and transaction history.")) {
+      setBalance(10000);
+      setHoldings({});
+      setTransactions([]);
+    }
+  };
+
   return (
       <div className="App">
         <h1>Crypto Trading</h1>
@@ -157,6 +165,21 @@ function App() {
 
           <button onClick={handleBuy} style={{ marginLeft: '20px' }}>Buy</button>
           <button onClick={handleSell} style={{ marginLeft: '10px' }}>Sell</button>
+
+          <div style={{ marginTop: '10px' }}>
+            <button
+                onClick={handleReset}
+                style={{
+                  background: 'darkred',
+                  color: 'white',
+                  padding: '8px 16px',
+                  borderRadius: '6px',
+                  marginTop: '10px'
+                }}
+            >
+              🔄 Reset Account
+            </button>
+          </div>
         </div>
 
         <p>📈 Current Price of {crypto}: ${currentPrice ? currentPrice.toFixed(2) : 'Loading...'}</p>
