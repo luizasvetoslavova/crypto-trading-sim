@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import axios from 'axios';
 
 const TradingContext = createContext();
 
@@ -32,6 +33,26 @@ export const TradingProvider = ({ children }) => {
     const [prices, setPrices] = useState({});
 
     useEffect(() => {
+        axios.get("http://localhost:8081/balance").then(res => {
+            setBalance(res.data.amount);
+        });
+
+        axios.get("http://localhost:8081/holdings").then(res => {
+            const map = {};
+            res.data.forEach(h => map[h.cryptocurrency] = h.amount);
+            setHoldings(map);
+        });
+
+        axios.get("http://localhost:8081/transactions").then(res => {
+            setTransactions(res.data.map(tx => ({
+                ...tx,
+                type: tx.buy ? 'BUY' : 'SELL',
+                timestamp: new Date(tx.timestamp).toLocaleString()
+            })));
+        });
+    }, []);
+
+    useEffect(() => {
         const ws = new WebSocket('wss://ws.kraken.com');
         ws.onopen = () => {
             ws.send(JSON.stringify({
@@ -56,54 +77,63 @@ export const TradingProvider = ({ children }) => {
         return () => ws.close();
     }, []);
 
-    const handleBuy = (crypto, amount) => {
+    const handleBuy = async (crypto, amount) => {
         const price = prices[crypto];
         const cost = price * amount;
         if (amount <= 0 || balance < cost) return;
-        setBalance(prev => prev - cost);
-        setHoldings(prev => ({
-            ...prev,
-            [crypto]: (prev[crypto] || 0) + amount
-        }));
-        setTransactions(prev => [
-            ...prev,
-            {
-                type: 'BUY',
-                crypto,
-                amount,
-                price,
-                total: cost,
-                timestamp: new Date().toLocaleString()
-            }
-        ]);
+
+        const newBalance = balance - cost;
+        const newHoldings = { ...holdings, [crypto]: (holdings[crypto] || 0) + amount };
+        const newTransaction = {
+            buy: true,
+            cryptocurrency: crypto,
+            units: amount,
+            pricePerUnit: price,
+            total: cost,
+            timestamp: new Date().toISOString()
+        };
+
+        setBalance(newBalance);
+        setHoldings(newHoldings);
+        setTransactions(prev => [newTransaction, ...prev]);
+
+        await axios.post("http://localhost:8081/balance", { amount: newBalance });
+        await axios.post("http://localhost:8081/holdings", { cryptocurrency: crypto, amount: newHoldings[crypto] });
+        await axios.post("http://localhost:8081/transactions", newTransaction);
     };
 
-    const handleSell = (crypto, amount) => {
+    const handleSell = async (crypto, amount) => {
         const price = prices[crypto];
-        if (amount <= 0 || (holdings[crypto] || 0) < amount) return;
+        const held = holdings[crypto] || 0;
+        if (amount <= 0 || held < amount) return;
+
         const revenue = price * amount;
-        setBalance(prev => prev + revenue);
-        setHoldings(prev => ({
-            ...prev,
-            [crypto]: prev[crypto] - amount
-        }));
-        setTransactions(prev => [
-            ...prev,
-            {
-                type: 'SELL',
-                crypto,
-                amount,
-                price,
-                total: revenue,
-                timestamp: new Date().toLocaleString()
-            }
-        ]);
+        const newBalance = balance + revenue;
+        const newHoldings = { ...holdings, [crypto]: held - amount };
+        const newTransaction = {
+            buy: false,
+            cryptocurrency: crypto,
+            units: amount,
+            pricePerUnit: price,
+            total: revenue,
+            timestamp: new Date().toISOString()
+        };
+
+        setBalance(newBalance);
+        setHoldings(newHoldings);
+        setTransactions(prev => [newTransaction, ...prev]);
+
+        await axios.post("http://localhost:8081/balance", { amount: newBalance });
+        await axios.post("http://localhost:8081/holdings", { cryptocurrency: crypto, amount: newHoldings[crypto] });
+        await axios.post("http://localhost:8081/transactions", newTransaction);
     };
 
-    const handleReset = () => {
+    const handleReset = async () => {
         setBalance(10000);
         setHoldings({});
         setTransactions([]);
+
+        await axios.post("http://localhost:8081/reset");
     };
 
     return (
