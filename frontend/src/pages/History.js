@@ -26,7 +26,7 @@ function History() {
                     <tr>
                         <th>Time</th>
                         <th>Type</th>
-                        <th>Symbol</th>
+                        <th>Cryptocurrency</th>
                         <th>Amount</th>
                         <th>Price</th>
                         <th>Total</th>
