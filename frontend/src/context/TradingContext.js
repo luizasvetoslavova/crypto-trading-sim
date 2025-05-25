@@ -129,12 +129,15 @@ export const TradingProvider = ({ children }) => {
     };
 
     const handleReset = async () => {
-        setBalance(10000);
-        setHoldings({});
-        setTransactions([]);
-
-        await axios.post("http://localhost:8081/reset");
+        try {
+            await axios.post('http://localhost:8081/reset');
+            setBalance(10000);
+            setHoldings({});
+        } catch (error) {
+            console.error("Reset failed:", error);
+        }
     };
+
 
     return (
         <TradingContext.Provider value={{
