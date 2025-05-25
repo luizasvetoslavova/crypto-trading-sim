@@ -35,7 +35,7 @@ public class TransactionsRepository {
             return new Transaction(
                     rs.getBoolean("is_buy"),
                     rs.getString("cryptocurrency"),
-                    rs.getInt("units"),
+                    rs.getDouble("units"),
                     rs.getDouble("price_per_unit"),
                     rs.getDouble("total"),
                     rs.getTimestamp("timestamp").toLocalDateTime()

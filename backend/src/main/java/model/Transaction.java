@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class Transaction {
     private boolean isBuy;
     private String cryptocurrency;
-    private int units;
+    private double units;
     private double pricePerUnit;
     private double total;
     private LocalDateTime timestamp;

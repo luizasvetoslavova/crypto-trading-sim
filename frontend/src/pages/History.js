@@ -6,10 +6,12 @@ function History() {
 
     useEffect(() => {
         axios.get('http://localhost:8081/transactions')
-            .then(response => setTransactions(response.data))
-            .catch(error => {
-                console.error("Error fetching transactions:", error);
-                setTransactions([]);
+            .then(res => {
+                console.log("📦 Raw transaction data:", res.data);
+                setTransactions(res.data);
+            })
+            .catch(err => {
+                console.error("Failed to fetch transactions:", err);
             });
     }, []);
 
@@ -32,22 +34,23 @@ function History() {
                     </thead>
                     <tbody>
                     {transactions.map((tx, idx) => {
-                        const type = tx.is_buy === true ? 'BUY' : (tx.is_buy === false ? 'SELL' : 'N/A');
-                        const symbol = tx.cryptocurrency || tx.crypto || 'N/A';
-                        const amount = tx.units ?? tx.amount ?? 0;
-                        const total = tx.total ?? 0;
-                        const pricePerUnit = amount > 0 ? total / amount : null;
+                        const rawIsBuy = tx.isBuy ?? tx.is_buy ?? tx.buy;
+                        const isBuy = rawIsBuy === true || rawIsBuy === 'true' || rawIsBuy === 1;
+                        const type = isBuy ? 'BUY' : 'SELL';
+
+                        const symbol = tx.cryptocurrency ?? tx.crypto ?? 'N/A';
+                        const amount = parseFloat(tx.units ?? tx.amount);
+                        const price = parseFloat(tx.pricePerUnit ?? tx.price_per_unit);
+                        const total = parseFloat(tx.total);
 
                         return (
                             <tr key={idx}>
-                                <td>{new Date(tx.timestamp).toLocaleString()}</td>
-                                <td style={{ color: type === 'BUY' ? 'green' : type === 'SELL' ? 'red' : 'gray' }}>
-                                    {type}
-                                </td>
+                                <td>{tx.timestamp ? new Date(tx.timestamp).toLocaleString() : 'N/A'}</td>
+                                <td style={{ color: type === 'BUY' ? 'green' : 'red' }}>{type}</td>
                                 <td>{symbol}</td>
-                                <td>{amount ? amount.toFixed(4) : 'N/A'}</td>
-                                <td>{pricePerUnit ? `$${pricePerUnit.toFixed(2)}` : 'N/A'}</td>
-                                <td>{total ? `$${total.toFixed(2)}` : 'N/A'}</td>
+                                <td>{!isNaN(amount) ? amount.toFixed(4) : 'N/A'}</td>
+                                <td>{!isNaN(price) ? `$${price.toFixed(2)}` : 'N/A'}</td>
+                                <td>{!isNaN(total) ? `$${total.toFixed(2)}` : 'N/A'}</td>
                             </tr>
                         );
                     })}
