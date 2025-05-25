@@ -1,7 +1,7 @@
 package com.cryptosim.backend.controller;
 
 import lombok.AllArgsConstructor;
-import model.Transaction;
+import com.cryptosim.backend.model.Transaction;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;

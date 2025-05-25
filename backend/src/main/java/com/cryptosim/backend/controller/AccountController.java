@@ -1,9 +1,9 @@
 package com.cryptosim.backend.controller;
 
 import lombok.AllArgsConstructor;
-import model.Balance;
-import model.Holding;
-import model.Transaction;
+import com.cryptosim.backend.model.Balance;
+import com.cryptosim.backend.model.Holding;
+import com.cryptosim.backend.model.Transaction;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

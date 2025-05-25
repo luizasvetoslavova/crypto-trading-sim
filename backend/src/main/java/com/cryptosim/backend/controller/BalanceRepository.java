@@ -1,7 +1,7 @@
 package com.cryptosim.backend.controller;
 
 import lombok.AllArgsConstructor;
-import model.Balance;
+import com.cryptosim.backend.model.Balance;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
