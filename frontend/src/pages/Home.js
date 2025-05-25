@@ -86,7 +86,8 @@ function Home() {
 
                 <div style={{ marginTop: '10px' }}>
                     <button
-                        onClick={() => window.confirm("Reset account?") && handleReset()}
+                        onClick={() => window.confirm("Reset account?\n" +
+                            "This will restore your balance and clear holdings.") && handleReset()}
                         className="reset"
                     >
                         🔄 Reset Account

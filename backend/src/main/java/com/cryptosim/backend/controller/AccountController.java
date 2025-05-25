@@ -51,6 +51,5 @@ public class AccountController {
     public void resetAll() {
         balanceRepo.resetBalance();
         holdingsRepo.resetHoldings();
-        transactionRepo.resetTransactions();
     }
 }

@@ -25,10 +25,6 @@ public class TransactionsRepository {
                 tx.isBuy(), tx.getCryptocurrency(), tx.getUnits(), tx.getPricePerUnit(), tx.getTotal(), Timestamp.valueOf(tx.getTimestamp()));
     }
 
-    public void resetTransactions() {
-        jdbcTemplate.update("DELETE FROM transactions");
-    }
-
     private static class TransactionMapper implements RowMapper<Transaction> {
         @Override
         public Transaction mapRow(ResultSet rs, int rowNum) throws SQLException {
