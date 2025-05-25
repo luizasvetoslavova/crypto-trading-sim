@@ -50,7 +50,10 @@ function History() {
                                 <td>{symbol}</td>
                                 <td>{!isNaN(amount) ? amount.toFixed(4) : 'N/A'}</td>
                                 <td>{!isNaN(price) ? `$${price.toFixed(2)}` : 'N/A'}</td>
-                                <td>{!isNaN(total) ? `$${total.toFixed(2)}` : 'N/A'}</td>
+                                <td>
+                                    {(tx.buy ? '- ' : '+ ')}${tx.total.toFixed(2)}
+                                </td>
+
                             </tr>
                         );
                     })}
