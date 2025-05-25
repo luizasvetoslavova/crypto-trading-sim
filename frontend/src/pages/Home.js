@@ -109,9 +109,11 @@ function Home() {
                     <p>N/A</p>
                 ) : (
                     <ul>
-                        {Object.entries(holdings).map(([key, val]) => (
-                            <li key={key}>{key}: {val.toFixed(4)}</li>
-                        ))}
+                        {Object.entries(holdings)
+                            .filter(([_, val]) => val > 0)
+                            .map(([key, val]) => (
+                                <li key={key}>{key}: {val.toFixed(4)}</li>
+                            ))}
                     </ul>
                 )}
             </div>
