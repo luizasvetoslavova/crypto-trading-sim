@@ -94,6 +94,15 @@ The frontend is developed using React and communicates with a Spring Boot backen
 
 <hr>
 
+<h2>🎥 User Journey Demo</h2>
+
+<a href="https://drive.google.com/file/d/1Dw6miv6r_fvIUxT0Ill8sVe8DB1CayVB/view?usp=sharing">
+  <img src="https://github.com/luizasvetoslavova/crypto-trading-sim/blob/master/frontend/public/video-thumbnail.png" width="600" alt="Watch the demo video"/>
+</a>
+<p><em>Click the image to watch a full user journey demo.</em></p>
+
+<hr>
+
 <h2>📂 Project Structure</h2>
 
 <pre>
