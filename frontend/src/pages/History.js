@@ -5,7 +5,7 @@ function History() {
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8081/transactions')
+        axios.get('http://localhost:8080/transactions')
             .then(res => {
                 console.log("📦 Raw transaction data:", res.data);
                 setTransactions(res.data);
