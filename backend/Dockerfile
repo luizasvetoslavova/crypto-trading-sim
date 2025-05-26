@@ -1,4 +1,11 @@
-FROM ubuntu:latest
-LABEL authors="munne"
+FROM eclipse-temurin:17-jdk-alpine
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /app
+
+COPY . .
+
+RUN ./gradlew build -x test
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "build/libs/backend-0.0.1-SNAPSHOT.jar"]
