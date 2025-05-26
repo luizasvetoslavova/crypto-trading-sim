@@ -41,7 +41,7 @@ function History() {
                         const symbol = tx.cryptocurrency ?? tx.crypto ?? 'N/A';
                         const amount = parseFloat(tx.units ?? tx.amount);
                         const price = parseFloat(tx.pricePerUnit ?? tx.price_per_unit);
-                        const total = parseFloat(tx.total);
+                        //const total = parseFloat(tx.total);
 
                         return (
                             <tr key={idx}>
