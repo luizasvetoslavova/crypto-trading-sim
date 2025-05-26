@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequestMapping
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {
+        "http://localhost:3000",
+        "https://crypto-trading-sim.netlify.app/"
+})
 @RestController
 @AllArgsConstructor
 public class AccountController {

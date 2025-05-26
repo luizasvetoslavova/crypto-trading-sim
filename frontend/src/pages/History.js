@@ -3,6 +3,7 @@ import axios from 'axios';
 
 function History() {
     const [transactions, setTransactions] = useState([]);
+    const API_BASE = process.env.REACT_APP_API_BASE;
 
     useEffect(() => {
         axios.get('http://localhost:8080/transactions')

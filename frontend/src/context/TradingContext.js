@@ -3,6 +3,8 @@ import axios from 'axios';
 
 const TradingContext = createContext();
 
+const API_BASE = process.env.REACT_APP_API_BASE;
+
 const topCryptos = {
     BTC: 'XBT/USD',
     ETH: 'ETH/USD',
@@ -33,17 +35,17 @@ export const TradingProvider = ({ children }) => {
     const [prices, setPrices] = useState({});
 
     useEffect(() => {
-        axios.get("http://localhost:8080/balance").then(res => {
+        axios.get(`${API_BASE}/balance`).then(res => {
             setBalance(res.data.amount);
         });
 
-        axios.get("http://localhost:8080/holdings").then(res => {
+        axios.get(`${API_BASE}/holdings`).then(res => {
             const map = {};
             res.data.forEach(h => map[h.cryptocurrency] = h.amount);
             setHoldings(map);
         });
 
-        axios.get("http://localhost:8080/transactions").then(res => {
+        axios.get(`${API_BASE}/transactions`).then(res => {
             setTransactions(res.data.map(tx => ({
                 ...tx,
                 type: tx.buy ? 'BUY' : 'SELL',
@@ -97,9 +99,9 @@ export const TradingProvider = ({ children }) => {
         setHoldings(newHoldings);
         setTransactions(prev => [newTransaction, ...prev]);
 
-        await axios.post("http://localhost:8080/balance", { amount: newBalance });
-        await axios.post("http://localhost:8080/holdings", { cryptocurrency: crypto, amount: newHoldings[crypto] });
-        await axios.post("http://localhost:8080/transactions", newTransaction);
+        await axios.post(`${API_BASE}/balance`, { amount: newBalance });
+        await axios.post(`${API_BASE}/holdings`, { cryptocurrency: crypto, amount: newHoldings[crypto] });
+        await axios.post(`${API_BASE}/transactions`, newTransaction);
     };
 
     const handleSell = async (crypto, amount) => {
@@ -123,21 +125,20 @@ export const TradingProvider = ({ children }) => {
         setHoldings(newHoldings);
         setTransactions(prev => [newTransaction, ...prev]);
 
-        await axios.post("http://localhost:8080/balance", { amount: newBalance });
-        await axios.post("http://localhost:8080/holdings", { cryptocurrency: crypto, amount: newHoldings[crypto] });
-        await axios.post("http://localhost:8080/transactions", newTransaction);
+        await axios.post(`${API_BASE}/balance`, { amount: newBalance });
+        await axios.post(`${API_BASE}/holdings`, { cryptocurrency: crypto, amount: newHoldings[crypto] });
+        await axios.post(`${API_BASE}/transactions`, newTransaction);
     };
 
     const handleReset = async () => {
         try {
-            await axios.post('http://localhost:8080/reset');
+            await axios.post(`${API_BASE}/reset`);
             setBalance(10000);
             setHoldings({});
         } catch (error) {
             console.error("Reset failed:", error);
         }
     };
-
 
     return (
         <TradingContext.Provider value={{
