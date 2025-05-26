@@ -5,7 +5,7 @@ function Home() {
     const [crypto, setCrypto] = useState('BTC');
     const [amount, setAmount] = useState(0);
     const [message, setMessage] = useState(null);
-    const [messageType, setMessageType] = useState(null); // 'error' | 'success'
+    const [messageType, setMessageType] = useState(null);
 
     const {
         balance, holdings, prices, topCryptos,

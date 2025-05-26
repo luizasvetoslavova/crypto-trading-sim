@@ -31,7 +31,7 @@ public class HoldingsRepository {
         jdbcTemplate.update("DELETE FROM holdings");
     }
 
-    private static class HoldingMapper implements RowMapper<Holding> {
+    static class HoldingMapper implements RowMapper<Holding> {
         @Override
         public Holding mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new Holding(rs.getString("cryptocurrency"), rs.getDouble("amount"));

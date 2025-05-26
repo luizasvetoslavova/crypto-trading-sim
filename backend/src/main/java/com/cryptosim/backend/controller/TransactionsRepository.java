@@ -25,7 +25,7 @@ public class TransactionsRepository {
                 tx.isBuy(), tx.getCryptocurrency(), tx.getUnits(), tx.getPricePerUnit(), tx.getTotal(), Timestamp.valueOf(tx.getTimestamp()));
     }
 
-    private static class TransactionMapper implements RowMapper<Transaction> {
+    static class TransactionMapper implements RowMapper<Transaction> {
         @Override
         public Transaction mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new Transaction(
