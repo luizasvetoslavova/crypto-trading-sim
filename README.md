@@ -114,42 +114,6 @@ crypto-trading-sim/
 <hr>
 
 <h2>📦 Getting Started</h2>
-
-<h3>For Developers</h3>
-
-<h4>Backend (Spring Boot)</h4>
-<ol>
-  <li>Ensure PostgreSQL is configured via NeonDB.</li>
-  <li>Set environment variables or configure <code>application.properties</code>:
-    <ul>
-      <li><code>SPRING_DATASOURCE_URL</code></li>
-      <li><code>SPRING_DATASOURCE_USERNAME</code></li>
-      <li><code>SPRING_DATASOURCE_PASSWORD</code></li>
-    </ul>
-  </li>
-  <li>Start the backend:
-    <pre>./gradlew bootRun</pre>
-  </li>
-</ol>
-
-<h4>Frontend (React)</h4>
-<ol>
-  <li>Create a <code>.env</code> file in <code>/frontend</code>:
-    <pre>REACT_APP_API_BASE=REACT_APP_API_BASE=https://crypto-trading-backend-9i7j.onrender.com</pre>
-  </li>
-  <li>Start the app:
-    <pre>
-cd frontend
-npm install
-npm start
-    </pre>
-  </li>
-</ol>
-
-<hr>
-
-<h3>For Users</h3>
-
 <ol>
   <li>Open the app:
     <br>
