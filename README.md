@@ -143,7 +143,6 @@ crypto-trading-sim/
 <ul>
   <li><strong>Practice Environment:</strong> Safely explore crypto trading with zero financial risk.</li>
   <li><strong>Learning Tool:</strong> Understand how live prices, balances, and order logic work in a real-world trading platform.</li>
-  <li><strong>Fintech Prototyping:</strong> Serve as a functional base for advanced trading products or academic research.</li>
 </ul>
 
 <hr>
