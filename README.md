@@ -2,9 +2,9 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/status-deployed-green" alt="Status">
-  <img src="https://img.shields.io/badge/frontend-Netlify-orange">
-  <img src="https://img.shields.io/badge/backend-Render-blue">
-  <img src="https://img.shields.io/badge/database-NeonDB-lightgrey">
+  <img src="https://img.shields.io/badge/frontend-React-orange">
+  <img src="https://img.shields.io/badge/backend-Java%20%7C%20Spring%20Boot-blue">
+  <img src="https://img.shields.io/badge/database-PostgreSQL-lightgrey">
 </p>
 
 <p align="center">
